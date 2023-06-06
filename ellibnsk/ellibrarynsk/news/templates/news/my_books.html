@@ -1,0 +1,16 @@
+{% extends 'main/layout.html' %}
+
+{% block title%}Про нас{% endblock %}
+
+{% block content%}
+    <div class="features">
+        <h1>Мои книги</h1>
+        {% for book in books %}
+            <div class="alert alert-warning" >
+                <h3>{{ book.title }}</h3>
+                <p>{{ book.anons }}</p>
+                <a href="{% url 'booking_delete' book.id %}"><button type="button" class="btn btn-danger">Снять бронь</button></a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'main/layout.html' %}
+{% block title%}Новости о библиотеке{% endblock %}
+
+{% block content%}
+    <div class="features">
+        <h1>Книги</h1>
+        <form action="{% url 'news_home' %}" style="display: flex">
+            <input class="search" style="margin: 0" type="text" placeholder="Поиск" name="search"/>
+            <button type="submit" style="margin-right: 5%"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <label>Сортировка по</label>
+            <form>
+            <select name="sort">
+                <option>названию</option>
+                <option>жанру</option>
+                <option>дате</option>
+            </select>
+                <button type="submit"><i class="fa-solid fa-filter"></i></button>
+            </form>
+        </form>
+
+        <div style="overflow: auto;height: 550px">
+        {% if news %}
+            {%for el in news%}
+                {% if el.title %}
+                <div class="alert alert-warning">
+                    <h3>{{ el.title }}</h3>
+                    <p>Автор: {{ el.anons }}</p>
+                    <p>Количество: {{ el.count}}</p>
+                    <a href="{% url 'news-detail' el.id %}" class = "btn btn-warning">Читать детальнее</a>
+                    {% for book in cartuser%}
+                        {% if book.books == el.id %}
+                        <a href="{% url 'booking_delete' el.id %}"><button type="button" class="btn btn-danger">Снять бронь</button></a>
+                        {% endif %}
+                    {% endfor %}
+                    {% if el.count > 0 %}
+                    <a href="{% url 'booking' el.id %}" class = "btn btn-warning">Забронировать книжку</a>
+                        {% endif %}
+                </div>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <p> У ВАС НЕТ ЗАПИСЕЙ </p>
+        {% endif %}
+        <div/>
+
+        {#Comments#}
+    </div>
+{% endblock %}

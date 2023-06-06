@@ -1,0 +1,34 @@
+{% extends 'main/layout.html' %}
+
+{% block title%}Главная страница{% endblock %}
+
+{% block content%}
+    <div class="features">
+        <h1>Новости библиотеки</h1>
+    <form action="{% url 'home' %}" style="display: flex;margin-left: 15%">
+    <div style="margin-right: 40%;">
+    <h3 style="min-width: 15vw;margin-bottom: 7%">Новости библиотеки</h3>
+    <div style="overflow: auto;max-height: 60vh">
+        {% for el in news %}
+            <div style="border: solid; background-color: #c1c1c1; min-width: 20vw; margin-bottom: 10%">
+                <h2>{{ el.title }}</h2>
+                <h5>{{ el.description }}</h5>
+                <p>{{ el.date }}</p>
+            </div>
+        {% endfor %}
+    </div>
+    </div>
+    <div style="overflow: auto;max-height: 60vh;min-width: 30.5vw">
+    <h3 style="margin-bottom: 7%"></h3>
+        {% for el in banners %}
+        <div style="border: solid; background-color: #c1c1c1;min-width: 20vw;margin-bottom: 5%">
+                <h4>{{ el.title }}</h4>
+                <h5>{{ el.date }}</h5>
+                <img loading="lazy" src="{{ el.img }}">
+                <a style="font-size: 20px; margin-top: 5vw" href="{{ el.url }}">Источник</a>
+        </div>
+        {% endfor %}
+    </div>
+    </form>
+    </div>
+{% endblock %}
